@@ -36,6 +36,10 @@ body {
     align-self: center;
 }
 
+#click-zone {
+    position: relative;
+}
+
 #counter {
     font-size: 24px;
     color: #00ff00;
@@ -48,9 +52,7 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
-    /* centre horizontalement */
     align-items: center;
-    /* centre verticalement */
 }
 
 .right {
