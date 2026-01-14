@@ -1,0 +1,30 @@
+.neon-effect::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px; /* ligne fine */
+    background: #22c55e;
+    box-shadow: 
+        0 0 3px #22c55e,
+        0 0 6px rgba(34,197,94,0.7),
+        0 0 10px rgba(34,197,94,0.5);
+    pointer-events: none;
+    z-index: 10;
+    animation: neonPulse 3s ease-in-out infinite;
+}
+
+/* Animation subtile */
+@keyframes neonPulse {
+    0%, 100% {
+        box-shadow: 0 0 2px #22c55e,
+                    0 0 4px rgba(34,197,94,0.5),
+                    0 0 6px rgba(34,197,94,0.3);
+    }
+    50% {
+        box-shadow: 0 0 5px #22c55e,
+                    0 0 10px rgba(34,197,94,0.7),
+                    0 0 15px rgba(34,197,94,0.5);
+    }
+}

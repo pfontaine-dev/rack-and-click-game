@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <link rel="stylesheet" href="css/neon-effect.css"> -->
+    <link rel="stylesheet" href="css/datacenter.css">
+    <link rel="stylesheet" href="css/click-animation.css">
+    <title>Rack & Click Game</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top neon-effect">
+          <h1>Rack & Click Game</h1>
+          <span></span>
+          <p id="counter">0 PU</p>
+          <p id="counter">0.0 PU/s</p>
+          <button type="button">Succès</button>
+          <button type="button">Paramêtres</button>
+        </div>
+        <div class="container-center">
+            <div class="left">
+                <div class="datacenter" id="click-zone">
+                    <div class="rack">
+                      <div class="server">
+                        <span class="led green"></span>
+                        <span class="led green"></span>
+                        <span class="led orange"></span>
+                      </div>
+                      <div class="server">
+                        <span class="led green"></span>
+                        <span class="led green"></span>
+                        <span class="led red"></span>
+                      </div>
+                      <div class="server">
+                        <span class="led green"></span>
+                        <span class="led orange"></span>
+                        <span class="led green"></span>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="right"></div>    
+        </div>
+        <div class="bottom">
+          <h3>Boutique</h3>
+          <div id="store" class="store-item-container"></div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

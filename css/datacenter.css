@@ -1,0 +1,66 @@
+.datacenter {
+    display: flex;
+    gap: 40px;
+}
+
+.rack {
+    background: #020617;
+    padding: 16px;
+    border-radius: 8px;
+    width: 140px;
+    box-shadow: 0 0 0 2px #1e293b;
+}
+
+.server {
+    background: #1e293b;
+    height: 32px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 8px;
+    gap: 6px;
+}
+
+.server:last-child {
+    margin-bottom: 0;
+}
+
+/* LED */
+.led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: blink 2s infinite;
+}
+
+/* Couleurs */
+.green {
+    background: #22c55e;
+    animation-delay: 0s;
+}
+
+.orange {
+    background: #f97316;
+    animation-delay: 0.5s;
+}
+
+.red {
+    background: #ef4444;
+    animation-delay: 1s;
+}
+
+/* Animation */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
