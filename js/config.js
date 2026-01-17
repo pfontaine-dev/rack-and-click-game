@@ -1,3 +1,4 @@
+// Configuration des items de la boutique
 export const storeItems = [
   // --- EARLY GAME ---
   { 
@@ -86,7 +87,7 @@ export const storeItems = [
   }
 ];
 
-
+// Configuration des améliorations
 export const upgradeItems = [
   // --- CLIC ---
   {
@@ -154,7 +155,6 @@ export const upgradeItems = [
     requires: "efficiency_boost"
   }
 ];
-
 
 // Configuration des succès
 export const achievements = [
@@ -301,7 +301,6 @@ export const achievements = [
     unlocked: false
   }
 ];
-
 
 // Paramètres du jeu
 export const gameConfig = {

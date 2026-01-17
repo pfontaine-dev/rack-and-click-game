@@ -9,20 +9,43 @@ export class Game {
     this.multiplier = 1; // Multiplicateur global
     this.totalClicks = 0;
     this.totalPurchases = 0;
+    this.upgradesOwned = 0; // Nombre d'upgrades possédés
+    this.items = {}; // Raccourci pour accéder aux items par ID
     this.storeItems = JSON.parse(JSON.stringify(storeItems));
     this.upgradeItems = JSON.parse(JSON.stringify(upgradeItems));
     this.achievements = JSON.parse(JSON.stringify(achievements));
     this.lastTick = Date.now();
+    
+    // Initialiser le raccourci items
+    this.updateItemsShortcut();
+  }
+
+  // Raccourci pour accéder aux items par ID
+  updateItemsShortcut() {
+    this.items = {};
+    this.storeItems.forEach(item => {
+      this.items[item.id] = item.owned;
+    });
+  }
+
+  // Vérifier si on possède un upgrade
+  hasUpgrade(upgradeId) {
+    const upgrade = this.upgradeItems.find(u => u.id === upgradeId);
+    return upgrade ? upgrade.owned : false;
   }
 
   // Calcul des PU/s
   getPUS() {
     let pus = this.basePS;
+    let itemMultiplier = 1;
     
     // Ajouter les PU/s de chaque item
     this.storeItems.forEach(item => {
       if (item.effect.type === "pus") {
         pus += item.owned * item.effect.value;
+      } else if (item.effect.type === "multiplier") {
+        // Les multiplicateurs des items s'empilent
+        itemMultiplier *= Math.pow(item.effect.value, item.owned);
       }
     });
 
@@ -33,8 +56,8 @@ export class Game {
       }
     });
 
-    // Appliquer le multiplicateur
-    pus *= this.multiplier;
+    // Appliquer les multiplicateurs (items + upgrades)
+    pus *= itemMultiplier * this.multiplier;
 
     return pus;
   }
@@ -82,6 +105,7 @@ export class Game {
       this.pu -= price;
       item.owned++;
       this.totalPurchases++;
+      this.updateItemsShortcut();
       this.checkAchievements();
       return true;
     }
@@ -103,6 +127,7 @@ export class Game {
     if (this.pu >= upgrade.price) {
       this.pu -= upgrade.price;
       upgrade.owned = true;
+      this.upgradesOwned++;
       this.totalPurchases++;
       this.updateClickPower();
       this.updateMultiplier();
@@ -159,6 +184,7 @@ export class Game {
       multiplier: this.multiplier,
       totalClicks: this.totalClicks,
       totalPurchases: this.totalPurchases,
+      upgradesOwned: this.upgradesOwned,
       storeItems: this.storeItems,
       upgradeItems: this.upgradeItems,
       achievements: this.achievements.map(a => ({ id: a.id, unlocked: a.unlocked })),
@@ -180,8 +206,12 @@ export class Game {
         this.multiplier = data.multiplier || 1;
         this.totalClicks = data.totalClicks || 0;
         this.totalPurchases = data.totalPurchases || 0;
+        this.upgradesOwned = data.upgradesOwned || 0;
         this.storeItems = data.storeItems || this.storeItems;
         this.upgradeItems = data.upgradeItems || this.upgradeItems;
+        
+        // Mettre à jour le raccourci items
+        this.updateItemsShortcut();
         
         // Pour les achievements, ne charger que l'état unlocked
         if (data.achievements) {
@@ -224,6 +254,7 @@ export class Game {
       multiplier: this.multiplier,
       totalClicks: this.totalClicks,
       totalPurchases: this.totalPurchases,
+      upgradesOwned: this.upgradesOwned,
       storeItems: this.storeItems,
       upgradeItems: this.upgradeItems,
       achievements: this.achievements.map(a => ({ id: a.id, name: a.name, description: a.description, unlocked: a.unlocked })),
@@ -252,8 +283,12 @@ export class Game {
       this.multiplier = data.multiplier || 1;
       this.totalClicks = data.totalClicks || 0;
       this.totalPurchases = data.totalPurchases || 0;
+      this.upgradesOwned = data.upgradesOwned || 0;
       this.storeItems = data.storeItems || this.storeItems;
       this.upgradeItems = data.upgradeItems || this.upgradeItems;
+      
+      // Mettre à jour le raccourci items
+      this.updateItemsShortcut();
       
       // Pour les achievements, ne charger que l'état unlocked
       if (data.achievements) {
