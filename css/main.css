@@ -1,100 +1,207 @@
-body {
-    margin: 0;
-    background-color: #0a0f14;
-    font-family: 'Courier New', Courier, monospace;
+/* =========================
+   STYLES GLOBAUX
+   ========================= */
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a0f14;
+  font-family: 'Share Tech Mono', 'Roboto Mono', 'Courier New', monospace;
+  color: #00ff00;
+  overflow-x: hidden;
+}
+
+/* =========================
+   CONTENEUR PRINCIPAL
+   ========================= */
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.container-center {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-grow: 1;
-}
+/* =========================
+   SECTION TOP
+   ========================= */
 
 .top {
-    background-color: #05080c;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-around;
+  background-color: #05080c;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 255, 0, 0.1);
 }
 
 .top h1 {
-    color: #00ff00;
-    font-size: 28px;
-    margin: 0;
-    align-self: center;
+  color: #00ff00;
+  font-size: 28px;
+  margin: 0;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.8),
+    0 0 20px rgba(0, 255, 0, 0.5),
+    0 0 30px rgba(0, 255, 0, 0.3);
+  letter-spacing: 2px;
 }
 
-#click-zone {
-    position: relative;
+.top p {
+  font-size: 20px;
+  color: #00ff00;
+  margin: 0;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
 }
 
-#counter {
-    font-size: 24px;
-    color: #00ff00;
-    align-self: center;
+#pus {
+  color: #22c55e;
+  font-size: 18px;
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+}
+
+.top button {
+  margin: 0 5px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #00ff00, #00aa00);
+  border: 1px solid #00ff00;
+  border-radius: 5px;
+  color: #000000;
+  font-weight: bold;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.top button:hover {
+  background: linear-gradient(135deg, #22ff22, #00cc00);
+  box-shadow: 
+    0 0 15px rgba(0, 255, 0, 0.6),
+    0 0 25px rgba(0, 255, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* =========================
+   SECTION CENTRALE
+   ========================= */
+
+.container-center {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: row;
+  align-items: stretch;
+  flex-grow: 1;
+  gap: 0;
 }
 
 .left {
-    background-color: #0e1a24;
-    flex: 2;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #0e1a24;
+  flex: 2;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(34, 197, 94, 0.02) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .right {
-    background-color: #102432;
-    flex: 1;
-    height: 100%;
+  background-color: #102432;
+  flex: 1;
+  height: 100%;
+  padding: 20px;
+  border-left: 1px solid rgba(0, 255, 0, 0.2);
+  box-shadow: inset 2px 0 10px rgba(0, 255, 0, 0.05);
 }
 
+.right h3 {
+  color: #00ff00;
+  font-size: 22px;
+  margin: 0 0 20px 0;
+  text-align: center;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.6),
+    0 0 20px rgba(0, 255, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid rgba(0, 255, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+/* =========================
+   SECTION BOTTOM
+   ========================= */
+
 .bottom {
-    background-color: #05080c;
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
+  background-color: #05080c;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(0, 255, 0, 0.2);
+  box-shadow: 
+    0 -2px 10px rgba(0, 255, 0, 0.1),
+    inset 0 2px 10px rgba(0, 255, 0, 0.05);
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .bottom h3 {
-    color: #00ff00;
-    font-size: 24px;
-    margin: 10px;
+  color: #00ff00;
+  font-size: 22px;
+  margin: 5px 0 10px 0;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.6),
+    0 0 20px rgba(0, 255, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.store-item-container {
-    display: flex;
-    flex-direction: row;
+/* =========================
+   SCROLLBAR CUSTOMIZATION
+   ========================= */
+
+.bottom::-webkit-scrollbar {
+  height: 8px;
 }
 
-.store-item{
-    width: 150px;
-    background-color: #626262;
-    padding: 10px;
-    border-radius: 5px;
-    color: #00ff00;
-    margin: 5px;
+.bottom::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
 }
 
-.buy-button{
-    margin-top: 10px;
-    padding: 5px;
-    background-color: #00ff00;
-    border: none;
-    border-radius: 3px;
-    color: #000000;
-    cursor: pointer;
+.bottom::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.3);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+.bottom::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
 }

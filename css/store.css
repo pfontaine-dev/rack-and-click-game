@@ -1,0 +1,125 @@
+/* =========================
+   BOUTIQUE
+   ========================= */
+
+.store-item-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.store-item {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px;
+  min-width: 220px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.store-item:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.3));
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 
+    0 0 15px rgba(0, 255, 0, 0.3),
+    0 0 25px rgba(0, 255, 0, 0.1),
+    inset 0 0 10px rgba(0, 255, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.item-info strong {
+  color: #00ff00;
+  font-size: 1em;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.item-description {
+  color: #22c55e;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+.item-owned {
+  color: #f97316;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(249, 115, 22, 0.5);
+  margin-top: 5px;
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #00ff00, #00aa00);
+  border: 1px solid #00ff00;
+  border-radius: 4px;
+  padding: 8px 16px;
+  color: #000000;
+  font-weight: bold;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.buy-button:hover:not(.disabled) {
+  background: linear-gradient(135deg, #22ff22, #00cc00);
+  box-shadow: 
+    0 0 15px rgba(0, 255, 0, 0.6),
+    0 0 25px rgba(0, 255, 0, 0.4);
+  transform: scale(1.05);
+}
+
+.buy-button:active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+.buy-button.disabled {
+  background: linear-gradient(135deg, #333, #222);
+  color: #555;
+  border-color: #333;
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+/* Scrollbar pour la boutique */
+.store-item-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.store-item-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.store-item-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+.store-item-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}

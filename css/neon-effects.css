@@ -1,0 +1,84 @@
+/* =========================
+   EFFETS NÉON
+   ========================= */
+
+/* Effet néon sur la section top */
+.neon-effect {
+  position: relative;
+}
+
+.neon-effect::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #22c55e;
+  box-shadow: 
+    0 0 3px #22c55e,
+    0 0 6px rgba(34, 197, 94, 0.7),
+    0 0 10px rgba(34, 197, 94, 0.5);
+  pointer-events: none;
+  z-index: 10;
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+/* Animation de pulsation néon */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 2px #22c55e,
+      0 0 4px rgba(34, 197, 94, 0.5),
+      0 0 6px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 5px #22c55e,
+      0 0 10px rgba(34, 197, 94, 0.7),
+      0 0 15px rgba(34, 197, 94, 0.5);
+  }
+}
+
+/* Effet de lueur pour les textes importants */
+.neon-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor,
+    0 0 20px currentColor;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor;
+  }
+  to {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor,
+      0 0 40px currentColor;
+  }
+}
+
+/* Bordures néon pour les conteneurs */
+.neon-border {
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 
+    0 0 5px rgba(0, 255, 0, 0.2),
+    inset 0 0 5px rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.neon-border:hover {
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.4),
+    0 0 20px rgba(0, 255, 0, 0.2),
+    inset 0 0 10px rgba(0, 255, 0, 0.2);
+}

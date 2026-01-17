@@ -1,0 +1,96 @@
+/* =========================
+   AMÉLIORATIONS
+   ========================= */
+
+.upgrade-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  padding-right: 5px;
+}
+
+.upgrade-item {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.upgrade-item:hover:not(.owned) {
+  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.3));
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 
+    0 0 15px rgba(0, 255, 0, 0.3),
+    0 0 25px rgba(0, 255, 0, 0.1),
+    inset 0 0 10px rgba(0, 255, 0, 0.05);
+  transform: translateX(5px);
+}
+
+.upgrade-item.owned {
+  opacity: 0.5;
+  border-color: rgba(0, 255, 0, 0.15);
+  background: linear-gradient(135deg, rgba(0, 100, 0, 0.2), rgba(0, 0, 0, 0.3));
+}
+
+.upgrade-item.owned .item-info strong {
+  color: #008800;
+  text-shadow: 0 0 3px rgba(0, 136, 0, 0.5);
+}
+
+.upgrade-item .item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.upgrade-item .item-info strong {
+  color: #00ff00;
+  font-size: 0.95em;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.upgrade-item .item-description {
+  color: #22c55e;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.requirement {
+  color: #f97316;
+  font-size: 0.75em;
+  font-style: italic;
+  text-shadow: 0 0 3px rgba(249, 115, 22, 0.5);
+  margin-top: 3px;
+}
+
+/* Scrollbar pour les améliorations */
+.upgrade-item-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.upgrade-item-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.upgrade-item-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+.upgrade-item-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}

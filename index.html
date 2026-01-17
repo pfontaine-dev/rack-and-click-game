@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
-    <!-- <link rel="stylesheet" href="css/neon-effect.css"> -->
+    <link rel="stylesheet" href="css/neon-effects.css">
     <link rel="stylesheet" href="css/datacenter.css">
     <link rel="stylesheet" href="css/click-animation.css">
+    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="css/upgrades.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/achievements.css">
     <title>Rack & Click Game</title>
 </head>
 <body>
@@ -14,10 +18,10 @@
         <div class="top neon-effect">
           <h1>Rack & Click Game</h1>
           <span></span>
-          <p id="counter">0 PU</p>
-          <p id="counter">0.0 PU/s</p>
-          <button type="button">Succès</button>
-          <button type="button">Paramêtres</button>
+          <p id="counter" class="neon-text">0 PU</p>
+          <p id="pus" class="neon-text">0.0 PU/s</p>
+          <button type="button" id="achievements-btn">Succès</button>
+          <button type="button" id="settings-btn">Paramètres</button>
         </div>
         <div class="container-center">
             <div class="left">
@@ -41,13 +45,38 @@
                     </div>
                   </div>
             </div>
-            <div class="right"></div>    
+            <div class="right">
+                <h3>Améliorations</h3>
+                <div id="upgrades" class="upgrade-item-container"></div>
+            </div>    
         </div>
         <div class="bottom">
           <h3>Boutique</h3>
           <div id="store" class="store-item-container"></div>
         </div>
     </div>
-    <script src="scripts.js"></script>
+
+    <!-- Modal Paramètres -->
+    <div id="settings-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Paramètres</h2>
+            <button type="button" id="export-save">Exporter la sauvegarde (JSON)</button>
+            <button type="button" id="import-save">Importer la sauvegarde</button>
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+            <button type="button" id="reset-save" style="background-color: #d9534f;">Réinitialiser le jeu</button>
+        </div>
+    </div>
+
+    <!-- Modal Succès -->
+    <div id="achievements-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Succès</h2>
+            <div id="achievements-list"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
