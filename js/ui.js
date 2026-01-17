@@ -24,6 +24,10 @@ export class UI {
     this.renderStore();
     this.renderUpgrades();
     this.renderAchievements();
+    
+    // Mise à jour initiale pour afficher les états corrects
+    this.updateStoreButtons();
+    this.updateUpgradeButtons();
   }
 
   initializeEvents() {
@@ -123,6 +127,8 @@ export class UI {
   renderUpgrades() {
     this.elements.upgrades.innerHTML = '';
     
+    console.log('Rendering upgrades:', this.game.upgradeItems.length);
+    
     this.game.upgradeItems.forEach(upgrade => {
       const upgradeDiv = document.createElement('div');
       upgradeDiv.className = 'upgrade-item';
@@ -136,11 +142,15 @@ export class UI {
       const meetsRequirements = !upgrade.requires || 
         this.game.upgradeItems.find(u => u.id === upgrade.requires)?.owned;
       
+      const requirementText = upgrade.requires && !meetsRequirements 
+        ? `<span class="requirement">Prérequis: ${this.game.upgradeItems.find(u => u.id === upgrade.requires)?.name || upgrade.requires}</span>` 
+        : '';
+      
       upgradeDiv.innerHTML = `
         <div class="item-info">
           <strong>${upgrade.name}</strong>
           <span class="item-description">${upgrade.description}</span>
-          ${upgrade.requires && !meetsRequirements ? '<span class="requirement">Nécessite: ' + upgrade.requires + '</span>' : ''}
+          ${requirementText}
         </div>
         <button class="buy-button ${upgrade.owned ? 'disabled' : (canAfford && meetsRequirements ? '' : 'disabled')}">
           ${upgrade.owned ? 'Possédé' : upgrade.price.toFixed(0) + ' PU'}
@@ -157,6 +167,8 @@ export class UI {
       
       this.elements.upgrades.appendChild(upgradeDiv);
     });
+    
+    console.log('Upgrades rendered in DOM:', this.elements.upgrades.children.length);
   }
 
   renderAchievements() {
