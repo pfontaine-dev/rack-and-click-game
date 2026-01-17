@@ -128,11 +128,17 @@ export class Game {
 
   // Vérification des succès
   checkAchievements() {
-    this.achievements.forEach(achievement => {
-      if (!achievement.unlocked && achievement.condition(this)) {
-        achievement.unlocked = true;
-        this.showAchievementNotification(achievement);
-      }
+    // Importer les conditions depuis config
+    import('./config.js').then(module => {
+      const achievementTemplates = module.achievements;
+      
+      this.achievements.forEach((achievement, index) => {
+        const template = achievementTemplates.find(t => t.id === achievement.id);
+        if (template && !achievement.unlocked && template.condition(this)) {
+          achievement.unlocked = true;
+          this.showAchievementNotification(achievement);
+        }
+      });
     });
   }
 
@@ -155,7 +161,7 @@ export class Game {
       totalPurchases: this.totalPurchases,
       storeItems: this.storeItems,
       upgradeItems: this.upgradeItems,
-      achievements: this.achievements,
+      achievements: this.achievements.map(a => ({ id: a.id, unlocked: a.unlocked })),
       timestamp: Date.now()
     };
     localStorage.setItem(gameConfig.localStorageKey, JSON.stringify(saveData));
@@ -176,7 +182,16 @@ export class Game {
         this.totalPurchases = data.totalPurchases || 0;
         this.storeItems = data.storeItems || this.storeItems;
         this.upgradeItems = data.upgradeItems || this.upgradeItems;
-        this.achievements = data.achievements || this.achievements;
+        
+        // Pour les achievements, ne charger que l'état unlocked
+        if (data.achievements) {
+          this.achievements.forEach(achievement => {
+            const savedAchievement = data.achievements.find(a => a.id === achievement.id);
+            if (savedAchievement) {
+              achievement.unlocked = savedAchievement.unlocked;
+            }
+          });
+        }
         
         // Calculer le temps écoulé hors ligne
         if (data.timestamp) {
@@ -211,7 +226,7 @@ export class Game {
       totalPurchases: this.totalPurchases,
       storeItems: this.storeItems,
       upgradeItems: this.upgradeItems,
-      achievements: this.achievements,
+      achievements: this.achievements.map(a => ({ id: a.id, name: a.name, description: a.description, unlocked: a.unlocked })),
       timestamp: Date.now(),
       version: "1.0"
     };
@@ -239,7 +254,17 @@ export class Game {
       this.totalPurchases = data.totalPurchases || 0;
       this.storeItems = data.storeItems || this.storeItems;
       this.upgradeItems = data.upgradeItems || this.upgradeItems;
-      this.achievements = data.achievements || this.achievements;
+      
+      // Pour les achievements, ne charger que l'état unlocked
+      if (data.achievements) {
+        this.achievements.forEach(achievement => {
+          const savedAchievement = data.achievements.find(a => a.id === achievement.id);
+          if (savedAchievement) {
+            achievement.unlocked = savedAchievement.unlocked;
+          }
+        });
+      }
+      
       this.lastTick = Date.now();
       this.save();
       return true;

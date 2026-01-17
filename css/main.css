@@ -82,6 +82,7 @@ body {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  will-change: box-shadow, background;
 }
 
 .top button:hover {
@@ -89,7 +90,10 @@ body {
   box-shadow: 
     0 0 15px rgba(0, 255, 0, 0.6),
     0 0 25px rgba(0, 255, 0, 0.4);
-  transform: scale(1.05);
+}
+
+.top button:active {
+  transform: scale(0.95);
 }
 
 /* =========================
@@ -159,7 +163,7 @@ body {
 .bottom {
   background-color: #05080c;
   width: 100%;
-  height: 150px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   padding: 10px 20px;
