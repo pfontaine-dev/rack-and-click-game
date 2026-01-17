@@ -92,6 +92,7 @@ export class UI {
     this.game.storeItems.forEach(item => {
       const itemDiv = document.createElement('div');
       itemDiv.className = 'store-item';
+      itemDiv.setAttribute('data-item-id', item.id);
       
       const price = this.game.getItemPrice(item);
       const canAfford = this.game.pu >= price;
@@ -102,7 +103,7 @@ export class UI {
           <span class="item-description">${item.description}</span>
           <span class="item-owned">Possédé: ${item.owned}</span>
         </div>
-        <button class="buy-button ${canAfford ? '' : 'disabled'}" data-id="${item.id}">
+        <button class="buy-button ${canAfford ? '' : 'disabled'}">
           ${price.toFixed(0)} PU
         </button>
       `;
@@ -110,7 +111,8 @@ export class UI {
       const buyBtn = itemDiv.querySelector('.buy-button');
       buyBtn.addEventListener('click', () => {
         if (this.game.buyStoreItem(item.id)) {
-          this.update();
+          this.updateStoreButtons();
+          this.updateUpgradeButtons();
         }
       });
       
@@ -124,6 +126,7 @@ export class UI {
     this.game.upgradeItems.forEach(upgrade => {
       const upgradeDiv = document.createElement('div');
       upgradeDiv.className = 'upgrade-item';
+      upgradeDiv.setAttribute('data-upgrade-id', upgrade.id);
       
       if (upgrade.owned) {
         upgradeDiv.classList.add('owned');
@@ -139,7 +142,7 @@ export class UI {
           <span class="item-description">${upgrade.description}</span>
           ${upgrade.requires && !meetsRequirements ? '<span class="requirement">Nécessite: ' + upgrade.requires + '</span>' : ''}
         </div>
-        <button class="buy-button ${upgrade.owned ? 'disabled' : (canAfford && meetsRequirements ? '' : 'disabled')}" data-id="${upgrade.id}">
+        <button class="buy-button ${upgrade.owned ? 'disabled' : (canAfford && meetsRequirements ? '' : 'disabled')}">
           ${upgrade.owned ? 'Possédé' : upgrade.price.toFixed(0) + ' PU'}
         </button>
       `;
@@ -147,7 +150,8 @@ export class UI {
       const buyBtn = upgradeDiv.querySelector('.buy-button');
       buyBtn.addEventListener('click', () => {
         if (this.game.buyUpgrade(upgrade.id)) {
-          this.update();
+          this.updateStoreButtons();
+          this.updateUpgradeButtons();
         }
       });
       
@@ -238,8 +242,57 @@ export class UI {
       this.elements.pus.textContent = `${this.game.getPUS().toFixed(1)} PU/s`;
     }
 
-    // Mise à jour de la boutique et des améliorations
-    this.renderStore();
-    this.renderUpgrades();
+    // Mise à jour uniquement des prix et états (pas de re-render complet)
+    this.updateStoreButtons();
+    this.updateUpgradeButtons();
+  }
+
+  updateStoreButtons() {
+    this.game.storeItems.forEach(item => {
+      const itemDiv = this.elements.store.querySelector(`[data-item-id="${item.id}"]`);
+      if (!itemDiv) return;
+
+      const price = this.game.getItemPrice(item);
+      const canAfford = this.game.pu >= price;
+      const buyBtn = itemDiv.querySelector('.buy-button');
+      const ownedSpan = itemDiv.querySelector('.item-owned');
+
+      if (buyBtn) {
+        buyBtn.textContent = `${price.toFixed(0)} PU`;
+        if (canAfford) {
+          buyBtn.classList.remove('disabled');
+        } else {
+          buyBtn.classList.add('disabled');
+        }
+      }
+
+      if (ownedSpan) {
+        ownedSpan.textContent = `Possédé: ${item.owned}`;
+      }
+    });
+  }
+
+  updateUpgradeButtons() {
+    this.game.upgradeItems.forEach(upgrade => {
+      const upgradeDiv = this.elements.upgrades.querySelector(`[data-upgrade-id="${upgrade.id}"]`);
+      if (!upgradeDiv) return;
+
+      const canAfford = this.game.pu >= upgrade.price;
+      const meetsRequirements = !upgrade.requires || 
+        this.game.upgradeItems.find(u => u.id === upgrade.requires)?.owned;
+      const buyBtn = upgradeDiv.querySelector('.buy-button');
+
+      if (buyBtn && !upgrade.owned) {
+        if (canAfford && meetsRequirements) {
+          buyBtn.classList.remove('disabled');
+        } else {
+          buyBtn.classList.add('disabled');
+        }
+      }
+
+      if (upgrade.owned) {
+        upgradeDiv.classList.add('owned');
+      }
+    });
   }
 }
